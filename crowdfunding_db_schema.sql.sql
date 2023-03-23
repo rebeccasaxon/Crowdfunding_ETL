@@ -5,66 +5,68 @@
 SET XACT_ABORT ON
 
 BEGIN TRANSACTION QUICKDBD
+CREATE TABLE Campaign (
+	    cf_id INT  NOT NULL,
+	    contact_id INT  NOT NULL ,
+	    company_name varchar(50)   NOT NULL ,
+	    description varchar(50)   NOT NULL ,
+	    goal varchar(50) NOT NULL ,
+	    pledged varchar(50) NOT NULL ,
+	    outcome varchar(50)  NOT NULL ,
+	    backers_count INT  NOT NULL ,
+	    country varchar(50)  NOT NULL ,
+	    currecy varchar(50)  NOT NULL ,
+	    launch_date varchar(50)   NOT NULL ,
+	    end_date varchar(50)   NOT NULL ,
+	    category_id varchar(50)  NOT NULL ,
+	    subcategory_id varchar(50)  NOT NULL ,
+	    CONSTRAINT PK_Campaign PRIMARY KEY (
+	        cf_id
+	    )
+	);
+	
 
-CREATE TABLE [Campaign] (
-    [cf_id] int64  NOT NULL ,
-    [contact_id] int64  NOT NULL ,
-    [company_name] object  NOT NULL ,
-    [description] object  NOT NULL ,
-    [goal] float64  NOT NULL ,
-    [pledged] float64  NOT NULL ,
-    [outcome] object  NOT NULL ,
-    [backers_count] int64  NOT NULL ,
-    [country] object  NOT NULL ,
-    [currecy] object  NOT NULL ,
-    [launch_date] object  NOT NULL ,
-    [end_date] object  NOT NULL ,
-    [category_id] object  NOT NULL ,
-    [subcategory_id] object  NOT NULL ,
-    CONSTRAINT [PK_Campaign] PRIMARY KEY CLUSTERED (
-        [cf_id] ASC
-    )
-)
+CREATE TABLE contacts (
+	    contact_id INT  NOT NULL ,
+	    first_name varchar(50)   NOT NULL ,
+	    last_name varchar(50)  NOT NULL ,
+	    email varchar(50)  NOT NULL ,
+	    CONSTRAINT PK_contacts PRIMARY KEY (
+	        contact_id
+	    )
+	);
+	
 
-CREATE TABLE [contacts] (
-    [contact_id] int64  NOT NULL ,
-    [first_name] object  NOT NULL ,
-    [last_name] object  NOT NULL ,
-    [email] object  NOT NULL ,
-    CONSTRAINT [PK_contacts] PRIMARY KEY CLUSTERED (
-        [contact_id] ASC
-    )
-)
+CREATE TABLE category (
+	    category_id varchar(50)  NOT NULL ,
+	    category varchar(50)  NOT NULL ,
+	    CONSTRAINT PK_category PRIMARY KEY (
+	        category_id
+	    )
+	);
+	
 
-CREATE TABLE [category] (
-    [category_id] object  NOT NULL ,
-    [category] object  NOT NULL ,
-    CONSTRAINT [PK_category] PRIMARY KEY CLUSTERED (
-        [category_id] ASC
-    )
-)
+CREATE TABLE subcategor (
+	    subcategory_id varchar(50) NOT NULL ,
+	    subcategory varchar(50) NOT NULL ,
+	    CONSTRAINT PK_subcategor PRIMARY KEY (
+	        subcategory_id
+	    )
+	);
+	
 
-CREATE TABLE [subcategor] (
-    [subcategory_id] object  NOT NULL ,
-    [subcategory] object  NOT NULL ,
-    CONSTRAINT [PK_subcategor] PRIMARY KEY CLUSTERED (
-        [subcategory_id] ASC
-    )
-)
+ALTER TABLE Campaign ADD CONSTRAINT FK_Campaign_contact_id FOREIGN KEY(contact_id)
+REFERENCES contacts (contact_id);
+		
 
-ALTER TABLE [Campaign] WITH CHECK ADD CONSTRAINT [FK_Campaign_contact_id] FOREIGN KEY([contact_id])
-REFERENCES [contacts] ([contact_id])
+ALTER TABLE Campaign ADD CONSTRAINT FK_Campaign_category_id FOREIGN KEY(category_id)
+REFERENCES category (category_id);
+	
 
-ALTER TABLE [Campaign] CHECK CONSTRAINT [FK_Campaign_contact_id]
 
-ALTER TABLE [Campaign] WITH CHECK ADD CONSTRAINT [FK_Campaign_category_id] FOREIGN KEY([category_id])
-REFERENCES [category] ([category_id])
+	
 
-ALTER TABLE [Campaign] CHECK CONSTRAINT [FK_Campaign_category_id]
-
-ALTER TABLE [Campaign] WITH CHECK ADD CONSTRAINT [FK_Campaign_subcategory_id] FOREIGN KEY([subcategory_id])
-REFERENCES [subcategor] ([subcategory_id])
-
-ALTER TABLE [Campaign] CHECK CONSTRAINT [FK_Campaign_subcategory_id]
+ALTER TABLE Campaign ADD CONSTRAINT FK_Campaign_subcategory_id FOREIGN KEY(subcategory_id)
+REFERENCES subcategor (subcategory_id);
 
 COMMIT TRANSACTION QUICKDBD
