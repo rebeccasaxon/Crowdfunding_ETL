@@ -1,6 +1,7 @@
 # Crowdfunding_ETL
 
 Partner: Eugenia Volscaia
+
 Our code is different.
 
 This repository contains a jupyter notebook that loads and transforms the crowdfunding dataset and creates four additional CSV fils. Those CSV files were used to create a schema and SQL database.
