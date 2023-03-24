@@ -42,7 +42,7 @@ CREATE TABLE category (
 CREATE TABLE subcategory (
 	    subcategory_id varchar(50) NOT NULL ,
 	    subcategory varchar(50) NOT NULL ,
-	    CONSTRAINT PK_subcategor PRIMARY KEY (
+	    CONSTRAINT PK_subcategory PRIMARY KEY (
 	        subcategory_id
 	    )
 	);
@@ -60,7 +60,7 @@ REFERENCES category (category_id);
 	
 
 ALTER TABLE Campaign ADD CONSTRAINT FK_Campaign_subcategory_id FOREIGN KEY(subcategory_id)
-REFERENCES subcategor (subcategory_id);
+REFERENCES subcategory (subcategory_id);
 
 Select *
 From campaign;
